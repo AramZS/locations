@@ -1,77 +1,98 @@
-[
-	{
-		"id": "674bd52e6ab4ef6954399a9a",
-		"createdAt": "2024-12-01 03:17:02.000000",
-		"type": "checkin",
-		"visibility": "closeFriends",
-		"timeZoneOffset": -300,
-		"venue": {
-			"id": "5bd7a5561c675b0039be9acc",
-			"name": "HALL",
-			"url": "https:\/\/foursquare.com\/v\/hall\/5bd7a5561c675b0039be9acc"
+{
+	"checkins": [
+		{
+			"id": "674bd52e6ab4ef6954399a9a",
+			"createdAt": "2024-12-01 03:17:02.000000",
+			"type": "checkin",
+			"visibility": "closeFriends",
+			"timeZoneOffset": -300,
+			"venue": {
+				"id": "5bd7a5561c675b0039be9acc",
+				"name": "HALL",
+				"url": "https:\/\/foursquare.com\/v\/hall\/5bd7a5561c675b0039be9acc"
+			},
+			"comments": {
+				"count": 0
+			}
 		},
-		"comments": {
-			"count": 0
-		}
-	},
-	{
-		"id": "674bbd6646fd04307ec4075a",
-		"createdAt": "2024-12-01 01:35:34.000000",
-		"type": "checkin",
-		"visibility": "closeFriends",
-		"timeZoneOffset": -300,
-		"venue": {
-			"id": "62abbe66485a6725594eb33e",
-			"name": "Baby Grand",
-			"url": "https:\/\/foursquare.com\/v\/baby-grand\/62abbe66485a6725594eb33e"
+		{
+			"id": "674bbd6646fd04307ec4075a",
+			"createdAt": "2024-12-01 01:35:34.000000",
+			"type": "checkin",
+			"visibility": "closeFriends",
+			"timeZoneOffset": -300,
+			"venue": {
+				"id": "62abbe66485a6725594eb33e",
+				"name": "Baby Grand",
+				"url": "https:\/\/foursquare.com\/v\/baby-grand\/62abbe66485a6725594eb33e"
+			},
+			"comments": {
+				"count": 0
+			}
 		},
-		"comments": {
-			"count": 0
-		}
-	},
-	{
-		"id": "674bbd55a36786106ccb4261",
-		"createdAt": "2024-12-01 01:35:17.000000",
-		"type": "checkin",
-		"visibility": "closeFriends",
-		"timeZoneOffset": -300,
-		"venue": {
-			"id": "4a31a5a2f964a5200d9a1fe3",
-			"name": "Laut",
-			"url": "https:\/\/foursquare.com\/v\/laut\/4a31a5a2f964a5200d9a1fe3"
+		{
+			"id": "674bbd55a36786106ccb4261",
+			"createdAt": "2024-12-01 01:35:17.000000",
+			"type": "checkin",
+			"visibility": "closeFriends",
+			"timeZoneOffset": -300,
+			"venue": {
+				"id": "4a31a5a2f964a5200d9a1fe3",
+				"name": "Laut",
+				"url": "https:\/\/foursquare.com\/v\/laut\/4a31a5a2f964a5200d9a1fe3"
+			},
+			"comments": {
+				"count": 0
+			}
 		},
-		"comments": {
-			"count": 0
-		}
-	},
-	{
-		"id": "674bb8a16ab4ef6954eb3578",
-		"createdAt": "2024-12-01 01:15:13.000000",
-		"type": "checkin",
-		"visibility": "closeFriends",
-		"timeZoneOffset": -300,
-		"venue": {
-			"id": "4a31a5a2f964a5200d9a1fe3",
-			"name": "Laut",
-			"url": "https:\/\/foursquare.com\/v\/laut\/4a31a5a2f964a5200d9a1fe3"
+		{
+			"id": "674bb8a16ab4ef6954eb3578",
+			"createdAt": "2024-12-01 01:15:13.000000",
+			"type": "checkin",
+			"visibility": "closeFriends",
+			"timeZoneOffset": -300,
+			"venue": {
+				"id": "4a31a5a2f964a5200d9a1fe3",
+				"name": "Laut",
+				"url": "https:\/\/foursquare.com\/v\/laut\/4a31a5a2f964a5200d9a1fe3"
+			},
+			"comments": {
+				"count": 0
+			}
 		},
-		"comments": {
-			"count": 0
+		{
+			"id": "674ba41220a63349c615a903",
+			"createdAt": "2024-11-30 23:47:30.000000",
+			"type": "checkin",
+			"visibility": "closeFriends",
+			"timeZoneOffset": -300,
+			"venue": {
+				"id": "4bfb1d1c65fbc9b6f308916c",
+				"name": "MTA Subway - 21st St\/Van Alst (G)",
+				"url": "https:\/\/foursquare.com\/v\/mta-subway--21st-stvan-alst-g\/4bfb1d1c65fbc9b6f308916c"
+			},
+			"comments": {
+				"count": 0
+			}
 		}
-	},
-	{
-		"id": "674ba41220a63349c615a903",
-		"createdAt": "2024-11-30 23:47:30.000000",
-		"type": "checkin",
-		"visibility": "closeFriends",
-		"timeZoneOffset": -300,
-		"venue": {
-			"id": "4bfb1d1c65fbc9b6f308916c",
-			"name": "MTA Subway - 21st St\/Van Alst (G)",
-			"url": "https:\/\/foursquare.com\/v\/mta-subway--21st-stvan-alst-g\/4bfb1d1c65fbc9b6f308916c"
-		},
-		"comments": {
-			"count": 0
+	],
+	"visits": [
+		{
+			"id": "673e69ccdc7d4627b68ceb3b",
+			"userId": "15234",
+			"timeArrived": "2024-11-20 22:59:24.483000",
+			"timeDeparted": "2024-11-20 23:15:22.419000",
+			"os": "Android",
+			"osVersion": "12",
+			"deviceModel": "SM-G975U1",
+			"isTraveling": false,
+			"latitude": 40.6436454,
+			"longitude": -74.072583,
+			"city": "Staten Island",
+			"state": "New York",
+			"postalCode": "8600000US10301",
+			"countryCode": "US",
+			"locationType": "Venue"
 		}
-	}
-]
+	]
+}
