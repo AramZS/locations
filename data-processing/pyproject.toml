@@ -9,6 +9,13 @@ version = "0.1.0"
 [tool.poetry.dependencies]
 python = "^3.13"
 pendulum = "^3.0.0"
+numpy = "^2.2.1"
+pandas = "^2.2.3"
+
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.1.1"
+ipykernel = "^6.29.5"
+jupyterlab = "^4.3.4"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
