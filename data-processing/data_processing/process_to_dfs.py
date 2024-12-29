@@ -224,6 +224,36 @@ def photos_processor(photosSetObject, venueDFSet, checkinDFSet):
 		if not venueDFSet.loc[venueDFSet['id'] == venueId, 'imageSuffix'].empty:
 			# print(f"Image already in place for {venueRatingId}")
 			continue
+
+		venueRow = venueDFSet.loc[venueDFSet['id']==venueId]
+		if venueRow.empty:
+			# A photo without a preexisting venue.
+		# print(f"Venue not found for {row['venueId']}")
+		# continue
+			venueDFSet.loc[-1] = [
+		venueId,
+		"",
+		"",
+		"", # latitude
+		"", # longitude
+		"", # tipString
+		"", # tipCreatedAt
+		"", # tipId
+		"", # tipUrl
+		"", # tipViews
+		"", # tipAgreeCount
+		"", # tipDisagreeCount
+		"", # rating
+		"", # imageSuffix
+		"", # imageWidth
+		"", # imageHeight
+		"", # imageId
+		"", # imageCreatedAt
+		[] # checkIns
+		]  # adding a row
+			venuesDf.index = venuesDf.index + 1  # shifting index
+			venuesDf = venuesDf.sort_index()  # sorting by index
+
 		#print(f"Venue found for {venueId} from {checkinId}")
 		venueDFSet.loc[venueDFSet['id'] == venueId, 'imageSuffix'] = photoObj["suffix"]
 		venueDFSet.loc[venueDFSet['id'] == venueId, 'imageWidth'] = photoObj["width"]
