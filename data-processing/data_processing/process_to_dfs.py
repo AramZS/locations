@@ -1,4 +1,7 @@
 import pandas as pd
+import requests
+from dotenv import dotenv_values
+import json
 
 def venues_processor(checkinsDataFrame):
 	# Create a DataFrame from the list of dictionaries
@@ -290,3 +293,29 @@ def process_to_dfs(data):
      'checkins': checkinsDataFrame,
      'photos': photosDataFrame
     }
+
+def get_place_details(venueId, apiKey):
+	apiBase = "https://api.foursquare.com/v3/places/" # add venueID
+
+	headers = {
+		"accept": "application/json",
+		"Authorization": apiKey
+	}
+	# print(f"Getting details for {venueId} with {apiKey}")
+	response = requests.get(apiBase+venueId, headers=headers)
+	print(response.status_code)
+	if response.status_code == 200:
+		print(response.json())
+	else:
+		print(f"Foursquare API request failed for ID {venueId}")
+		print(response.status_code)
+	print(response)
+
+
+def process_foursquare_data_into_venues(venuesDataFrame, envLocation):
+	config = dotenv_values(envLocation)
+	apiKey = config['FSQ_API_KEY']
+
+	apiBase = "https://api.foursquare.com/v3/places/" # add venueID
+
+	print(response.text)

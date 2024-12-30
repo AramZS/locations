@@ -20,3 +20,7 @@ testLast.html
 
 # Local Netlify folder
 .netlify
+
+data_processing/__pycache__/
+**/__pycache__/**
+.ipynb_checkpoints
