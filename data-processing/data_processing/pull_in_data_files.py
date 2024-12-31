@@ -8,7 +8,7 @@ def turn_list_of_item_files_into_objects(json_files):
 		with open(file, 'r') as f:
 			print(f"Reading {file}")
 			jsonLoaded = json.load(f);
-			data.append(jsonLoaded['items'])
+			data = data+jsonLoaded['items']
 	return data
 
 
@@ -23,9 +23,9 @@ def turn_list_of_ratings_files_into_objects(json_files):
 		with open(file, 'r') as f:
 			print(f"Reading {file}")
 			ratingsByType = json.load(f)
-			data['venueLikes'].append(ratingsByType['venueLikes'])
-			data['venueDislikes'].append(ratingsByType['venueDislikes'])
-			data['venueOkays'].append(ratingsByType['venueOkays'])
+			data['venueLikes'] = data['venueLikes'] + ratingsByType['venueLikes']
+			data['venueDislikes'] = data['venueDislikes'] + ratingsByType['venueDislikes']
+			data['venueOkays'] = data['venueOkays'] + ratingsByType['venueOkays']
 			#data.append(json.load(f))
 	return data
 

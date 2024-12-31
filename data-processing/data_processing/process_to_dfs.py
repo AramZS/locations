@@ -168,6 +168,8 @@ def checkin_processing(checkinList, df):
       item['shout']
       ]], columns=df.columns), df], ignore_index=True)
 
+	return df
+
 def checkin_packages_processor(data):
 	# Create a DataFrame from the list of dictionaries
 	df = pd.DataFrame(columns=[
@@ -182,11 +184,11 @@ def checkin_packages_processor(data):
 		'commentsCount',
 		'shout'
 	])
-	for checkinList in data:
-		checkin_processing(checkinList, df)
-
-	print(f"Total checkins without visibility: {visCount}")
+	#for checkinList in data:
+	df = checkin_processing(data, df)
+	print('Checkins Dataframe shape')
 	print(df.shape)
+	# print(df.iloc[0])
 	return df
 
 def photos_processor(photosSetObject, venueDFSet, checkinDFSet):
@@ -203,7 +205,7 @@ def photos_processor(photosSetObject, venueDFSet, checkinDFSet):
 		if "swarmapp" in photoObj['relatedItemUrl']:
 			checkinId = photoObj['relatedItemUrl'].split('/')[-1]
 			# print(f"checkinId is {checkinId}")
-			checkinRow = checkinDFSet.loc[df['id'] == checkinId]
+			checkinRow = checkinDFSet.loc[checkinDFSet['id'] == checkinId]
 			if checkinRow.empty:
 				print(f"Checkin not found for {checkinId}")
 				continue
@@ -254,8 +256,8 @@ def photos_processor(photosSetObject, venueDFSet, checkinDFSet):
 		"", # imageCreatedAt
 		[] # checkIns
 		]  # adding a row
-			venuesDf.index = venuesDf.index + 1  # shifting index
-			venuesDf = venuesDf.sort_index()  # sorting by index
+			venueDFSet.index = venueDFSet.index + 1  # shifting index
+			venueDFSet = venueDFSet.sort_index()  # sorting by index
 
 		#print(f"Venue found for {venueId} from {checkinId}")
 		venueDFSet.loc[venueDFSet['id'] == venueId, 'imageSuffix'] = photoObj["suffix"]
@@ -280,6 +282,8 @@ def process_to_dfs(data):
 
 	# Process the checkins
 	checkinsDataFrame = checkin_packages_processor(data['checkins'])
+	# print('Checkins Dataframe check')
+	# print(checkinsDataFrame.iloc[0])
 	# Process the venues
 	venuesDataFrame = venues_processor(checkinsDataFrame)
 	# Process the ratings
@@ -305,11 +309,12 @@ def get_place_details(venueId, apiKey):
 	response = requests.get(apiBase+venueId, headers=headers)
 	print(response.status_code)
 	if response.status_code == 200:
-		print(response.json())
+		jsonData = response.json()
+		print(jsonData)
 	else:
 		print(f"Foursquare API request failed for ID {venueId}")
 		print(response.status_code)
-	print(response)
+	return jsonData
 
 
 def process_foursquare_data_into_venues(venuesDataFrame, envLocation):
