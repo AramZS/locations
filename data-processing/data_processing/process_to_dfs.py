@@ -2,6 +2,17 @@ import pandas as pd
 import requests
 from dotenv import dotenv_values
 import json
+from pathlib import Path
+
+def place_into_dataframe(df, idValue, field, valueParentDict, dictKey):
+	if dictKey in valueParentDict:
+		value = valueParentDict[dictKey]
+		if value is None or value == "":
+			return
+		else:
+			df.loc[df['id'] == idValue, field] = value
+	# else:
+		# print(f"Key {dictKey} not found in {valueParentDict}")
 
 def venues_processor(checkinsDataFrame):
 	# Create a DataFrame from the list of dictionaries
@@ -24,7 +35,13 @@ def venues_processor(checkinsDataFrame):
 		'imageHeight', # from photos file, is the `height` field
 		'imageId', # from photos file, is the `id` field
 		'imageCreatedAt', # from photos file, is the `createdAt` field
-		'checkIns' # array of string checkin IDs.
+		'checkIns', # array of string checkin IDs.
+		'address',
+		'locality',
+		'country',
+		'postal_code',
+		'region',
+		'formatted_address'
 	])
 	for index, row in checkinsDataFrame.iterrows():
 		venueRow = venuesDf.loc[venuesDf['id']==row['venueId']]
@@ -50,7 +67,13 @@ def venues_processor(checkinsDataFrame):
 		"", # imageHeight
 		"", # imageId
 		"", # imageCreatedAt
-		[row['id']] # checkIns
+		[row['id']], # checkIns,
+		"", # address
+		"", # locality
+		"", # country
+		"", # postalCode
+		"", # region
+		"" # formattedAddress
 		]  # adding a row
 			venuesDf.index = venuesDf.index + 1  # shifting index
 			venuesDf = venuesDf.sort_index()  # sorting by index
@@ -91,7 +114,13 @@ def add_venues_ratings(ratingSet, ratingType, venueDFSet):
 				"", # imageHeight
 				"", # imageId
 				"", # imageCreatedAt
-				[] # checkIns
+				[], # checkIns
+				"", # address
+				"", # locality
+				"", # country
+				"", # postalCode
+				"", # region
+				"" # formattedAddress
 			]  # adding a row
 			venueDFSet.index = venueDFSet.index + 1  # shifting index
 			venueDFSet = venueDFSet.sort_index()  # sorting by index
@@ -127,7 +156,13 @@ def tip_processor(tipsSetObject, venueDFSet):
 				"", # imageHeight
 				"", # imageId
 				"", # imageCreatedAt
-				[] # checkIns
+				[], # checkIns
+				"", # address
+				"", # locality
+				"", # country
+				"", # postalCode
+				"", # region
+				"" # formattedAddress
 			]  # adding a row
 			venueDFSet.index = venueDFSet.index + 1  # shifting index
 			venueDFSet = venueDFSet.sort_index()  # sorting by index
@@ -254,7 +289,13 @@ def photos_processor(photosSetObject, venueDFSet, checkinDFSet):
 		"", # imageHeight
 		"", # imageId
 		"", # imageCreatedAt
-		[] # checkIns
+		[], # checkIns
+		"", # address
+		"", # locality
+		"", # country
+		"", # postalCode
+		"", # region
+		"" # formattedAddress
 		]  # adding a row
 			venueDFSet.index = venueDFSet.index + 1  # shifting index
 			venueDFSet = venueDFSet.sort_index()  # sorting by index
@@ -300,7 +341,7 @@ def process_to_dfs(data):
 
 def get_place_details(venueId, apiKey):
 	apiBase = "https://api.foursquare.com/v3/places/" # add venueID
-
+	jsonData = False
 	headers = {
 		"accept": "application/json",
 		"Authorization": apiKey
@@ -310,17 +351,50 @@ def get_place_details(venueId, apiKey):
 	print(response.status_code)
 	if response.status_code == 200:
 		jsonData = response.json()
-		print(jsonData)
+		fileName = f"../venueData/{venueId}.json"
+		# print(jsonData)
+		filepath = Path(fileName)
+		if filepath.is_file():
+			# file exists
+			print(f"File exists for {venueId}")
+			with open(filepath, 'r') as f:
+				# print(f"Reading {file}")
+				jsonData = json.load(f)
+		else:
+			with open(fileName, 'w') as f:
+				json.dump(jsonData, f)
 	else:
 		print(f"Foursquare API request failed for ID {venueId}")
 		print(response.status_code)
+		failFileName = f"../failedVenueData/{venueId}.txt"
+		with open(failFileName, 'w') as f:
+			f.write(f"status_code:{response.status_code},venue:{venueId},url:{apiBase+venueId}");
 	return jsonData
 
 
 def process_foursquare_data_into_venues(venuesDataFrame, envLocation):
 	config = dotenv_values(envLocation)
 	apiKey = config['FSQ_API_KEY']
+	print(f"Foursquare API Key is {apiKey}")
+	for index, row in venuesDataFrame.iterrows():
+		venueDictionary = get_place_details(row['id'], apiKey)
+		if (False == venueDictionary):
+			print(f"Failed to get details for {row['id']}")
+			continue
 
-	apiBase = "https://api.foursquare.com/v3/places/" # add venueID
+		# venuesDataFrame.loc[venuesDataFrame['id'] == row['id'], 'latitude'] = venueDictionary['geocodes']['main']['latitude']
+		if 'main' in venueDictionary['geocodes']:
+			place_into_dataframe(venuesDataFrame, row['id'], 'latitude', venueDictionary['geocodes']['main'],'latitude')
+			place_into_dataframe(venuesDataFrame, row['id'], 'longitude', venueDictionary['geocodes']['main'],'longitude')
+		if 'location' in venueDictionary:
+			place_into_dataframe(venuesDataFrame, row['id'], 'address', venueDictionary['location'],'address')
+			place_into_dataframe(venuesDataFrame, row['id'], 'locality', venueDictionary['location'],'locality')
+			place_into_dataframe(venuesDataFrame, row['id'], 'country', venueDictionary['location'], 'country')
+			place_into_dataframe(venuesDataFrame, row['id'], 'postal_code', venueDictionary['location'], 'postcode')
+			place_into_dataframe(venuesDataFrame, row['id'], 'region', venueDictionary['location'], 'region')
+			place_into_dataframe(venuesDataFrame, row['id'], 'formatted_address', venueDictionary['location'],'formatted_address')
+		# row['latitude'] = venueDictionary['geocodes']['main']['latitude']
+		# row['longitude'] = venueDictionary['geocodes']['main']['longitude']
 
-	print(response.text)
+	# print(response.text)
+	# 	venuesDf.loc[venuesDf['id'] == venueId, 'imageId'] = photoObj["suffix"]
