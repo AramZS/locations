@@ -356,7 +356,7 @@ def get_place_details(venueId, apiKey):
 		filepath = Path(fileName)
 		if filepath.is_file():
 			# file exists
-			print(f"File exists for {venueId}")
+			# print(f"File exists for {venueId}")
 			with open(filepath, 'r') as f:
 				# print(f"Reading {file}")
 				jsonData = json.load(f)
