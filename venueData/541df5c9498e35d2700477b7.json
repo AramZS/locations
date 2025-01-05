@@ -1,0 +1,54 @@
+{
+	"fsq_id": "541df5c9498e35d2700477b7",
+	"categories": [
+		{
+			"id": 13050,
+			"name": "Distillery",
+			"short_name": "Distillery",
+			"plural_name": "Distilleries",
+			"icon": {
+				"prefix": "https://ss3.4sqi.net/img/categories_v2/food/brewery_",
+				"suffix": ".png"
+			}
+		},
+		{
+			"id": 13065,
+			"name": "Restaurant",
+			"short_name": "Restaurant",
+			"plural_name": "Restaurants",
+			"icon": {
+				"prefix": "https://ss3.4sqi.net/img/categories_v2/food/default_",
+				"suffix": ".png"
+			}
+		}
+	],
+	"chains": [],
+	"closed_bucket": "LikelyOpen",
+	"geocodes": {
+		"main": {
+			"latitude": 41.505241,
+			"longitude": -73.969774
+		},
+		"roof": {
+			"latitude": 41.505241,
+			"longitude": -73.969774
+		}
+	},
+	"link": "/v3/places/541df5c9498e35d2700477b7",
+	"location": {
+		"address": "10 N Chestnut St",
+		"census_block": "360272101015008",
+		"country": "US",
+		"cross_street": "Main Street",
+		"dma": "New York",
+		"formatted_address": "10 N Chestnut St (Main Street), Beacon, NY 12508",
+		"locality": "Beacon",
+		"postcode": "12508",
+		"region": "NY"
+	},
+	"name": "Denning's Point Distillery",
+	"related_places": {
+		"children": []
+	},
+	"timezone": "America/New_York"
+}
