@@ -1,0 +1,1 @@
+status_code:404,venue:4c746a1ed8948cfa261565da,url:https://api.foursquare.com/v3/places/4c746a1ed8948cfa261565da
